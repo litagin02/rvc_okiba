@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Graph Visualization with Vis.js</title>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        #network {
+            width: 800px;
+            height: 600px;
+            border: 1px solid black;
+            margin-top: 20px;
+        }
+
+        #infoview {
+            margin: 10px;
+        }
+
+        #infoview span {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 10px 5px;
+            /* border: none; */
+            border-radius: 4px;
+            background-color: #D2E5FF;
+            border-color: #2B7CE9;
+            color: black;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #9ec5ff;
+        }
+    </style>
+</head>
+
+<body>
+    <h2><a href="https://huggingface.co/litagin/rvc_okiba">RVC okiba</a> モデル エクスプローラー</h2>
+    <p>近い声質のモデル同士が繋がっています。辺が短いほど・太いほど似ているはずです。（あくまで目安です。）
+    <details>
+        <summary>技術的な詳細</summary>
+        ボイチェンサンプル音声から
+        <a href="https://huggingface.co/pyannote/embedding">PyAnnoteの埋め込み</a>を使って得られた512次元特徴量のコサイン距離を使って、minimum
+        spanning treeを作ったものです。
+        求め方は<a href="https://huggingface.co/litagin/rvc_okiba/blob/main/similarity_mst.ipynb">このノートブック</a>を参照してください。
+    </details>
+    </p>
+    <!-- 水平線 -->
+    <hr>
+
+    <div id="infoview">
+        <span id="node-description">現在のモデル:</span>
+        <span id="node-name">モデルを選んでください。</span>
+        <br>
+        <button id="play-corpus">短文サンプルを再生</button>
+        <button id="play-song">歌唱サンプルを再生</button>
+        <button id="play-vc">ボイチェンサンプルを再生</button>
+        <button id="open-url">モデルのURLを開く</button>
+        <div id="audio-player">
+            <audio id="node-audio" controls>
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+    <div id="network"></div>
+    <script src="graph.js"></script>
+</body>
+
+</html>
+
+</html>
