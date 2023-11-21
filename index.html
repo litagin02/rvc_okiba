@@ -9,6 +9,7 @@
             width: 800px;
             height: 600px;
             border: 1px solid black;
+            border-radius: 4px;
             margin-top: 20px;
         }
 
@@ -41,7 +42,7 @@
 
 <body>
     <h2><a href="https://huggingface.co/litagin/rvc_okiba">RVC okiba</a> モデル エクスプローラー</h2>
-    <p>近い声質のモデル同士が繋がっています。辺が短いほど・太いほど似ているはずです。（あくまで目安です。）
+    <p>近い声質のモデル同士が繋がっています。拡大縮小や頂点の移動ができます。辺が短いほど・太いほど似ているはずです（あくまで目安です）。辺にカーソルをのせたときの数字は2つのコサイン類似度です。
     <details>
         <summary>技術的な詳細</summary>
         ボイチェンサンプル音声から
@@ -50,7 +51,6 @@
         求め方は<a href="https://huggingface.co/litagin/rvc_okiba/blob/main/similarity_mst.ipynb">このノートブック</a>を参照してください。
     </details>
     </p>
-    <!-- 水平線 -->
     <hr>
 
     <div id="infoview">
