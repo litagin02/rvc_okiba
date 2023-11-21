@@ -7,9 +7,9 @@ fetch("https://huggingface.co/litagin/rvc_okiba/raw/main/mst_data.json")
       data.edges.map((edge) => ({
         from: edge.from,
         to: edge.to,
-        length: edge.length * 1000, // Adjust the multiplier as needed
-        value: 1 / edge.length, // Adjust the multiplier as needed
-        title: edge.length * 100,
+        length: edge.length * 1000,
+        value: 1 / edge.length,
+        title: 1 - edge.length,
       }))
     );
 
