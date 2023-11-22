@@ -37,7 +37,7 @@ fetch("https://huggingface.co/litagin/rvc_okiba/raw/main/mst_data.json")
     const network = new vis.Network(container, graphData, options);
 
     // Add event listener for node clicks
-    network.on("click", function (params) {
+    network.on("selectNode", function (params) {
       if (params.nodes.length > 0) {
         const nodeId = params.nodes[0];
         const nodeName = nodes.get(nodeId).label; // Assuming label is the same as node name
@@ -47,6 +47,38 @@ fetch("https://huggingface.co/litagin/rvc_okiba/raw/main/mst_data.json")
         document.getElementById("node-audio").src = "";
       }
     });
+
+    function zoomToNode() {
+      const nodeName = document.getElementById("model-name-input").value;
+      const foundNode = nodes.get({
+        filter: function (item) {
+          return item.label === nodeName;
+        },
+      });
+
+      if (foundNode.length > 0) {
+        const nodeId = foundNode[0].id;
+        network.focus(nodeId, { scale: 1, animation: true });
+        network.selectNodes([nodeId]);
+        document.getElementById("node-name").textContent = nodeName;
+        document.getElementById("node-audio").src = "";
+      } else {
+        alert("指定されたモデル名は見つかりませんでした。");
+      }
+    }
+
+    document
+      .getElementById("search-button")
+      .addEventListener("click", zoomToNode);
+
+    document
+      .getElementById("model-name-input")
+      .addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          zoomToNode();
+        }
+      });
   })
   .catch((error) => console.error("Error loading the MST data:", error));
 
